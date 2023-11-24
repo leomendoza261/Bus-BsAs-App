@@ -44,6 +44,7 @@ const Transporte = () => {
         fetchTransportData();
     }, [route]);
 
+    /* actualiza la posicion de los colectivos cada 30 segundos */
     useEffect(() => {
         const fetchDataInterval = setInterval(() => {
             async function fetchTransportData() {
