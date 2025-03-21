@@ -27,23 +27,6 @@ const Transporte = () => {
     const [transportData, setTransportData] = useState(null);
     const [route, setRoute] = useState(82)
 
-    useEffect(() => {
-        async function fetchTransportData() {
-            try {
-                const response = await fetch(`https://datosabiertos-transporte-apis.buenosaires.gob.ar:443/colectivos/vehiclePositionsSimple?route_id=${route}&client_id=cb6b18c84b3b484d98018a791577af52&client_secret=3e3DB105Fbf642Bf88d5eeB8783EE1E6`);
-                if (!response.ok) {
-                    throw new Error('Error en la solicitud a la API');
-                }
-                const data = await response.json();
-                setTransportData(data);
-                console.log(transportData)
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-        fetchTransportData();
-    }, [route]);
-
     /* actualiza la posicion de los colectivos cada 30 segundos */
     useEffect(() => {
         const fetchDataInterval = setInterval(() => {
@@ -61,7 +44,7 @@ const Transporte = () => {
                 }
             }
             fetchTransportData();
-        }, 31000); // 31 segundos en milisegundos
+        },[route], 31000); // 31 segundos en milisegundos
     
         // Limpia el intervalo cuando el componente se desmonta
         return () => {
